@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-
 import CourseGoalList from './components/CourseGoals/CourseGoalList/CourseGoalList';
 import CourseInput from './components/CourseGoals/CourseInput/CourseInput';
 import './App.css';
+import { v4 as uuidv4 } from 'uuid';
 
 const App = () => {
     const [courseGoals, setCourseGoals] = useState([
@@ -13,7 +13,7 @@ const App = () => {
     const addGoalHandler = enteredText => {
         setCourseGoals(prevGoals => {
             const updatedGoals = [...prevGoals];
-            updatedGoals.unshift({text: enteredText, id: Math.random().toString()});
+            updatedGoals.unshift({text: enteredText, id: uuidv4()});
             return updatedGoals;
         });
     };
