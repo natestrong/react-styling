@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-
-import Button from '../../UI/Button/Button';
 import './CourseInput.css';
+import {FormControl} from '../../UI/FormControl';
+import Button from '../../UI/Button';
 
 const CourseInput = props => {
     const [enteredValue, setEnteredValue] = useState('');
@@ -9,6 +9,9 @@ const CourseInput = props => {
 
     const goalInputChangeHandler = event => {
         setEnteredValue(event.target.value);
+        if (event.target.value.length > 0) {
+            setIsValid(true);
+        }
     };
 
     const formSubmitHandler = event => {
@@ -17,23 +20,18 @@ const CourseInput = props => {
             setIsValid(false);
             return;
         }
-        setIsValid(true);
         props.onAddGoal(enteredValue);
     };
 
     return (
         <form onSubmit={formSubmitHandler}>
-            <div className='form-control'>
-                <label style={{color: !isValid ? 'red' : 'black'}}>
+            <FormControl invalid={!isValid}>
+                <label>
                     Course Goal
                 </label>
                 <input type='text'
-                       style={{
-                           borderColor: !isValid ? 'red' : 'black',
-                           background: !isValid ? 'salmon' : 'transparent'
-                       }}
                        onChange={goalInputChangeHandler}/>
-            </div>
+            </FormControl>
             <Button type='submit'>Add Goal</Button>
         </form>
     );
